@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Furniturezone.pk + Axovion — AI Automation for Furniture Sales</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blue: #1346AF;
+            --blue-dark: #0e3690;
+            --blue-light: #1a5ce0;
+            --gold: #edc967;
+            --gold-light: #f0d77f;
+            --black: #000000;
+            --white: #ffffff;
+            --gray: #333333;
+            --gray-light: #f5f5f5;
+            --gray-mid: #666666;
+            --success: #2e7d32;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Roboto', sans-serif; background: var(--white); color: var(--gray); line-height: 1.6; }
+        h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; font-weight: 600; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* Header */
+        .header { background: var(--white); padding: 15px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 15px rgba(0,0,0,0.08); border-bottom: 3px solid var(--gold); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo-area { display: flex; align-items: center; gap: 15px; }
+        .logo-area img { height: 50px; }
+        .logo-text { color: var(--blue); font-family: 'Poppins', sans-serif; font-size: 1.3rem; font-weight: 600; }
+        .logo-text span { color: var(--gold); }
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a { color: var(--gray); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--blue); }
+        .btn-primary { background: var(--blue); color: var(--white); padding: 12px 28px; border-radius: 4px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s; border: none; cursor: pointer; display: inline-block; }
+        .btn-primary:hover { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(19,70,175,0.3); }
+        .btn-gold { background: var(--gold); color: var(--black); padding: 12px 28px; border-radius: 4px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s; border: none; cursor: pointer; display: inline-block; }
+        .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+        .btn-outline { background: transparent; color: var(--blue); border: 2px solid var(--blue); padding: 10px 26px; border-radius: 4px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s; cursor: pointer; display: inline-block; }
+        .btn-outline:hover { background: var(--blue); color: var(--white); }
+
+        /* Hero */
+        .hero { background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%); padding: 100px 0 80px; text-align: center; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: -50%; right: -20%; width: 600px; height: 600px; background: rgba(237,201,103,0.05); border-radius: 50%; }
+        .hero::after { content: ''; position: absolute; bottom: -30%; left: -10%; width: 400px; height: 400px; background: rgba(237,201,103,0.03); border-radius: 50%; }
+        .hero-content { position: relative; z-index: 2; }
+        .hero-badge { display: inline-block; background: rgba(237,201,103,0.15); color: var(--gold); padding: 8px 20px; border-radius: 30px; font-size: 0.85rem; font-weight: 600; margin-bottom: 25px; border: 1px solid rgba(237,201,103,0.3); }
+        .hero h1 { color: var(--white); font-size: 3rem; margin-bottom: 20px; line-height: 1.2; }
+        .hero h1 span { color: var(--gold); }
+        .hero p { color: rgba(255,255,255,0.8); font-size: 1.2rem; max-width: 700px; margin: 0 auto 40px; font-weight: 300; }
+        .hero-cta { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+
+        /* Stats Bar */
+        .stats-bar { background: var(--white); padding: 40px 0; border-bottom: 1px solid #eee; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; text-align: center; }
+        .stat-item h3 { color: var(--blue); font-size: 2.2rem; margin-bottom: 5px; }
+        .stat-item p { color: var(--gray-mid); font-size: 0.9rem; }
+
+        /* Section */
+        .section { padding: 80px 0; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { color: var(--blue); font-size: 2.2rem; margin-bottom: 15px; }
+        .section-title p { color: var(--gray-mid); font-size: 1.05rem; max-width: 600px; margin: 0 auto; }
+        .gold-line { width: 60px; height: 3px; background: var(--gold); margin: 15px auto 0; }
+
+        /* Product Showcase */
+        .products-showcase { background: var(--gray-light); }
+        .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+        .product-card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.06); transition: all 0.3s; }
+        .product-card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        .product-card img { width: 100%; height: 200px; object-fit: cover; }
+        .product-info { padding: 20px; }
+        .product-info h4 { color: var(--blue); font-size: 1rem; margin-bottom: 8px; }
+        .product-info .price { color: var(--gold); font-weight: 700; font-size: 1.1rem; }
+        .product-info .cat { color: var(--gray-mid); font-size: 0.8rem; }
+
+        /* Pain Points */
+        .pain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .pain-card { background: var(--white); border: 1px solid #eee; border-radius: 8px; padding: 35px; transition: all 0.3s; }
+        .pain-card:hover { transform: translateY(-5px); box-shadow: 0 10px 40px rgba(0,0,0,0.08); border-color: var(--blue); }
+        .pain-icon { width: 50px; height: 50px; background: rgba(19,70,175,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 1.5rem; }
+        .pain-card h3 { color: var(--blue); font-size: 1.2rem; margin-bottom: 12px; }
+        .pain-card p { color: var(--gray-mid); font-size: 0.95rem; }
+
+        /* Solutions */
+        .solutions { background: var(--white); }
+        .solution-row { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-bottom: 60px; }
+        .solution-row.reverse { direction: rtl; }
+        .solution-row.reverse > * { direction: ltr; }
+        .solution-content h3 { color: var(--blue); font-size: 1.6rem; margin-bottom: 15px; }
+        .solution-content p { color: var(--gray-mid); margin-bottom: 20px; }
+        .solution-content ul { list-style: none; }
+        .solution-content ul li { padding: 8px 0; padding-left: 28px; position: relative; color: var(--gray); }
+        .solution-content ul li::before { content: '✓'; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
+        .solution-visual { background: var(--gray-light); border-radius: 12px; padding: 40px; text-align: center; }
+        .solution-visual .icon-big { font-size: 4rem; margin-bottom: 20px; }
+
+        /* ROI Calculator */
+        .roi-section { background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%); color: var(--white); padding: 80px 0; }
+        .roi-section .section-title h2 { color: var(--white); }
+        .roi-section .section-title p { color: rgba(255,255,255,0.7); }
+        .roi-calculator { background: rgba(255,255,255,0.05); border: 1px solid rgba(237,201,103,0.2); border-radius: 16px; padding: 50px; max-width: 900px; margin: 0 auto; }
+        .roi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .roi-inputs label { display: block; color: rgba(255,255,255,0.8); margin-bottom: 8px; font-size: 0.9rem; }
+        .roi-inputs input, .roi-inputs select { width: 100%; padding: 14px 18px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.08); color: var(--white); border-radius: 8px; font-size: 1rem; margin-bottom: 20px; }
+        .roi-inputs input:focus, .roi-inputs select:focus { outline: none; border-color: var(--gold); }
+        .roi-results { background: rgba(0,0,0,0.2); border-radius: 12px; padding: 35px; }
+        .roi-result-item { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .roi-result-item:last-child { border-bottom: none; }
+        .roi-result-item .label { color: rgba(255,255,255,0.7); }
+        .roi-result-item .value { color: var(--gold); font-weight: 700; font-size: 1.1rem; }
+        .roi-total { background: var(--gold); color: var(--black); padding: 20px; border-radius: 8px; text-align: center; margin-top: 20px; }
+        .roi-total .label { font-size: 0.9rem; font-weight: 600; }
+        .roi-total .value { font-size: 2rem; font-weight: 700; }
+
+        /* Pricing */
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .pricing-card { background: var(--white); border: 2px solid #eee; border-radius: 12px; padding: 45px 35px; text-align: center; transition: all 0.3s; position: relative; }
+        .pricing-card.featured { border-color: var(--gold); transform: scale(1.05); box-shadow: 0 15px 50px rgba(0,0,0,0.1); }
+        .pricing-card.featured::before { content: 'MOST POPULAR'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--black); padding: 5px 20px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
+        .pricing-card h3 { color: var(--blue); font-size: 1.4rem; margin-bottom: 10px; }
+        .pricing-card .price { color: var(--gold); font-size: 2.8rem; font-weight: 700; margin: 20px 0; }
+        .pricing-card .price span { font-size: 1rem; color: var(--gray-mid); font-weight: 400; }
+        .pricing-card ul { list-style: none; text-align: left; margin: 30px 0; }
+        .pricing-card ul li { padding: 10px 0; padding-left: 25px; position: relative; color: var(--gray); font-size: 0.95rem; }
+        .pricing-card ul li::before { content: '✓'; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
+        .pricing-card ul li.x::before { content: '✗'; color: var(--gray-mid); }
+
+        /* CTA Section */
+        .cta-section { background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%); padding: 100px 0; text-align: center; }
+        .cta-section h2 { color: var(--white); font-size: 2.5rem; margin-bottom: 20px; }
+        .cta-section p { color: rgba(255,255,255,0.8); font-size: 1.1rem; max-width: 600px; margin: 0 auto 40px; }
+        .cta-buttons { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+
+        /* Footer */
+        .footer { background: var(--black); color: rgba(255,255,255,0.6); padding: 50px 0 30px; text-align: center; }
+        .footer a { color: var(--gold); text-decoration: none; }
+        .footer-links { display: flex; justify-content: center; gap: 30px; margin-bottom: 25px; flex-wrap: wrap; }
+        .footer-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9rem; }
+        .footer-links a:hover { color: var(--gold); }
+
+        /* Chatbot */
+        .chatbot-container { position: fixed; bottom: 30px; right: 30px; z-index: 1000; }
+        .chatbot-toggle { width: 60px; height: 60px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 20px rgba(237,201,103,0.4); transition: all 0.3s; font-size: 1.5rem; }
+        .chatbot-toggle:hover { transform: scale(1.1); }
+        .chatbot-window { position: absolute; bottom: 75px; right: 0; width: 380px; height: 520px; background: var(--white); border-radius: 16px; box-shadow: 0 10px 50px rgba(0,0,0,0.2); display: none; flex-direction: column; overflow: hidden; border: 1px solid #eee; }
+        .chatbot-window.open { display: flex; }
+        .chatbot-header { background: var(--blue); color: var(--white); padding: 18px 20px; display: flex; align-items: center; gap: 12px; }
+        .chatbot-header img { width: 36px; height: 36px; border-radius: 50%; }
+        .chatbot-header .info h4 { font-size: 1rem; margin-bottom: 2px; }
+        .chatbot-header .info span { font-size: 0.75rem; opacity: 0.8; }
+        .chatbot-close { margin-left: auto; cursor: pointer; font-size: 1.2rem; opacity: 0.7; }
+        .chatbot-close:hover { opacity: 1; }
+        .chatbot-messages { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+        .chat-message { max-width: 85%; padding: 12px 16px; border-radius: 16px; font-size: 0.9rem; line-height: 1.5; }
+        .chat-message.bot { background: var(--gray-light); color: var(--gray); align-self: flex-start; border-bottom-left-radius: 4px; }
+        .chat-message.user { background: var(--blue); color: var(--white); align-self: flex-end; border-bottom-right-radius: 4px; }
+        .chat-message.bot.typing::after { content: '...'; animation: typing 1.5s infinite; }
+        @keyframes typing { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+        .chatbot-input { padding: 15px 20px; border-top: 1px solid #eee; display: flex; gap: 10px; }
+        .chatbot-input input { flex: 1; padding: 12px 16px; border: 1px solid #ddd; border-radius: 25px; font-size: 0.9rem; outline: none; }
+        .chatbot-input input:focus { border-color: var(--gold); }
+        .chatbot-input button { width: 44px; height: 44px; background: var(--gold); border: none; border-radius: 50%; cursor: pointer; color: var(--black); font-size: 1.1rem; transition: all 0.3s; }
+        .chatbot-input button:hover { background: var(--gold-light); }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .products-grid { grid-template-columns: repeat(2, 1fr); }
+            .pain-grid { grid-template-columns: 1fr; }
+            .solution-row { grid-template-columns: 1fr; }
+            .solution-row.reverse { direction: ltr; }
+            .roi-grid { grid-template-columns: 1fr; }
+            .pricing-grid { grid-template-columns: 1fr; }
+            .pricing-card.featured { transform: none; }
+            .hero h1 { font-size: 2rem; }
+            .chatbot-window { width: calc(100vw - 40px); right: -10px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <div class="container header-inner">
+        <div class="logo-area">
+            <img src="logo.webp" alt="Furniturezone.pk">
+            <div class="logo-text">Furniturezone.pk <span>+ Axovion</span></div>
+        </div>
+        <nav class="nav-links">
+            <a href="#products">Products</a>
+            <a href="#solutions">Solutions</a>
+            <a href="#roi">ROI Calculator</a>
+            <a href="#pricing">Pricing</a>
+            <a href="https://calendly.com/axovionio1/new-meeting" class="btn-primary">Book a Demo</a>
+        </nav>
+    </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="container hero-content">
+        <div class="hero-badge">🚀 AI-Powered for Pakistani Furniture Stores</div>
+        <h1>Scale Furniturezone.pk with <span>AI Automation</span></h1>
+        <p>Handle 10x more customer inquiries without hiring. Our AI WhatsApp bot answers product questions, recovers abandoned carts, and tracks orders — 24/7 in Urdu & English.</p>
+        <div class="hero-cta">
+            <a href="https://calendly.com/axovionio1/new-meeting" class="btn-gold">Schedule Free Demo</a>
+            <a href="https://wa.me/923360784541" class="btn-outline" style="color: var(--white); border-color: var(--white);">Chat on WhatsApp</a>
+        </div>
+    </div>
+</section>
+
+<!-- Stats -->
+<section class="stats-bar">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h3>60%</h3>
+                <p>Faster Response Time</p>
+            </div>
+            <div class="stat-item">
+                <h3>35%</h3>
+                <p>More Conversions</p>
+            </div>
+            <div class="stat-item">
+                <h3>20%</h3>
+                <p>Higher Order Value</p>
+            </div>
+            <div class="stat-item">
+                <h3>24/7</h3>
+                <p>AI Availability</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Products Showcase -->
+<section class="section products-showcase" id="products">
+    <div class="container">
+        <div class="section-title">
+            <h2>Your Catalog, Powered by AI</h2>
+            <p>200+ products across bedroom, living room, dining, and office — our AI knows them all</p>
+            <div class="gold-line"></div>
+        </div>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="product1.jpg" alt="Cambridge King Bed">
+                <div class="product-info">
+                    <h4>Cambridge King Bed</h4>
+                    <p class="cat">Bedroom Furniture</p>
+                    <p class="price">Rs. 20,000</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="product2.jpg" alt="Modern Sofa Set">
+                <div class="product-info">
+                    <h4>Chesterfield Velvet Sofa</h4>
+                    <p class="cat">Living Room</p>
+                    <p class="price">Rs. 35,000</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="product3.jpg" alt="Oma Platform Bed">
+                <div class="product-info">
+                    <h4>Oma Low Profile Bed</h4>
+                    <p class="cat">Bedroom Furniture</p>
+                    <p class="price">Rs. 5,500</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="product5.jpg" alt="Lausyn Bedroom Set">
+                <div class="product-info">
+                    <h4>Lausyn Upholstered Set</h4>
+                    <p class="cat">Bedroom Set</p>
+                    <p class="price">Rs. 19,001</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pain Points -->
+<section class="section" id="pain">
+    <div class="container">
+        <div class="section-title">
+            <h2>The Challenges You Face</h2>
+            <p>Selling premium furniture online comes with unique customer experience challenges</p>
+            <div class="gold-line"></div>
+        </div>
+        <div class="pain-grid">
+            <div class="pain-card">
+                <div class="pain-icon">🛒</div>
+                <h3>Cart Abandonment</h3>
+                <p>70% of customers add a Rs. 50,000+ bed to cart but never complete. No automated recovery means lost revenue.</p>
+            </div>
+            <div class="pain-card">
+                <div class="pain-icon">⏰</div>
+                <h3>After-Hours Inquiries</h3>
+                <p>Your showroom closes at 9 PM but customers browse at midnight. Every unanswered question is a lost sale.</p>
+            </div>
+            <div class="pain-card">
+                <div class="pain-icon">📱</div>
+                <h3>WhatsApp Overload</h3>
+                <p>+92-306-4757194 gets constant messages about dimensions, materials, availability. Manual replies don't scale.</p>
+            </div>
+            <div class="pain-card">
+                <div class="pain-icon">🔄</div>
+                <h3>No Follow-Up</h3>
+                <p>Customer views 3 beds, adds one to cart, leaves. No re-engagement — they buy from Interwood instead.</p>
+            </div>
+            <div class="pain-card">
+                <div class="pain-icon">📞</div>
+                <h3>"Where Is My Order?"</h3>
+                <p>Your team spends hours daily updating customers on delivery status. This should be automatic.</p>
+            </div>
+            <div class="pain-card">
+                <div class="pain-icon">🌍</div>
+                <h3>Language Barrier</h3>
+                <p>Some customers prefer Urdu, others English. Your team can't switch instantly on every inquiry.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Solutions -->
+<section class="section solutions" id="solutions">
+    <div class="container">
+        <div class="section-title">
+            <h2>What Axovion Builds for You</h2>
+            <p>End-to-end AI automation tailored for Furniturezone.pk's premium furniture store</p>
+            <div class="gold-line"></div>
+        </div>
+
+        <div class="solution-row">
+            <div class="solution-content">
+                <h3>🤖 AI WhatsApp Sales Bot</h3>
+                <p>Your 24/7 furniture consultant. Trained on your entire catalog of 200+ products.</p>
+                <ul>
+                    <li>Answers product questions instantly (dimensions, material, colors)</li>
+                    <li>Recommends furniture based on room size, budget, style</li>
+                    <li>Qualifies buyers: budget range, timeline, delivery location</li>
+                    <li>Sends product photos and catalog links automatically</li>
+                    <li>Responds in Urdu and English automatically</li>
+                </ul>
+            </div>
+            <div class="solution-visual">
+                <div class="icon-big">💬</div>
+                <p style="color: var(--gray-mid); font-size: 0.95rem;"><em>"I need a bed for my master bedroom, budget 30k"</em></p>
+                <p style="color: var(--blue); font-weight: 700; margin-top: 15px;">→ Bot suggests 3 options with photos in 2 seconds</p>
+            </div>
+        </div>
+
+        <div class="solution-row reverse">
+            <div class="solution-content">
+                <h3>🛒 Abandoned Cart Recovery</h3>
+                <p>Turn 70% cart abandonment into recovered revenue.</p>
+                <ul>
+                    <li>Tracks cart abandonment in real-time</li>
+                    <li>WhatsApp after 1 hour: "You left something beautiful behind..."</li>
+                    <li>Includes product image + exclusive 5% discount</li>
+                    <li>Follow-up after 24h with similar recommendations</li>
+                </ul>
+            </div>
+            <div class="solution-visual">
+                <div class="icon-big">🔄</div>
+                <p style="color: var(--gray-mid); font-size: 0.95rem;">Customer abandoned a Rs. 45,000 sofa set</p>
+                <p style="color: var(--blue); font-weight: 700; margin-top: 15px;">→ Auto-message recovers 15% of abandoned carts</p>
+            </div>
+        </div>
+
+        <div class="solution-row">
+            <div class="solution-content">
+                <h3>📦 Order Tracking Automation</h3>
+                <p>Never answer "Where is my order?" again.</p>
+                <ul>
+                    <li>Customer messages "order status" → bot pulls from WooCommerce</li>
+                    <li>Automated delivery updates via WhatsApp</li>
+                    <li>"Your Cambridge King Bed arrives tomorrow 2-4 PM"</li>
+                    <li>Delivery confirmation and review request</li>
+                </ul>
+            </div>
+            <div class="solution-visual">
+                <div class="icon-big">📦</div>
+                <p style="color: var(--gray-mid); font-size: 0.95rem;"><em>"Where is my order?"</em></p>
+                <p style="color: var(--blue); font-weight: 700; margin-top: 15px;">→ Instant tracking info, no human needed</p>
+            </div>
+        </div>
+
+        <div class="solution-row reverse">
+            <div class="solution-content">
+                <h3>🎙️ AI Voice Agent</h3>
+                <p>Answer calls 24/7 in natural Urdu and English.</p>
+                <ul>
+                    <li>Handles phone inquiries after showroom hours</li>
+                    <li>Natural conversation powered by ElevenLabs AI</li>
+                    <li>Books showroom visits, answers FAQs</li>
+                    <li>Escalates custom orders to your team</li>
+                </ul>
+            </div>
+            <div class="solution-visual">
+                <div class="icon-big">🎙️</div>
+                <p style="color: var(--gray-mid); font-size: 0.95rem;"><em>"Assalam o Alaikum, Furniturezone se baat ho rahi hai..."</em></p>
+                <p style="color: var(--blue); font-weight: 700; margin-top: 15px;">→ Warm, human-like voice in Urdu</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ROI Calculator -->
+<section class="roi-section" id="roi">
+    <div class="container">
+        <div class="section-title">
+            <h2>ROI Calculator</h2>
+            <p>See how much AI automation can save and earn for Furniturezone.pk</p>
+            <div class="gold-line" style="background: var(--gold);"></div>
+        </div>
+        <div class="roi-calculator">
+            <div class="roi-grid">
+                <div class="roi-inputs">
+                    <label>Average Website Visitors per Week</label>
+                    <input type="number" id="visitors" value="500" oninput="calculateROI()">
+                    
+                    <label>Average Order Value (PKR)</label>
+                    <input type="number" id="aov" value="45000" oninput="calculateROI()">
+                    
+                    <label>Current Cart Abandonment Rate (%)</label>
+                    <input type="number" id="abandonRate" value="70" oninput="calculateROI()">
+                    
+                    <label>Weekly WhatsApp Inquiries</label>
+                    <input type="number" id="inquiries" value="80" oninput="calculateROI()">
+                    
+                    <label>Staff Hours Spent on Support/Week</label>
+                    <input type="number" id="supportHours" value="25" oninput="calculateROI()">
+                </div>
+                <div class="roi-results">
+                    <div class="roi-result-item">
+                        <span class="label">Weekly Abandoned Carts</span>
+                        <span class="value" id="abandonedCarts">35</span>
+                    </div>
+                    <div class="roi-result-item">
+                        <span class="label">Lost Revenue from Abandonment</span>
+                        <span class="value" id="lostRevenue">PKR 6,300,000/mo</span>
+                    </div>
+                    <div class="roi-result-item">
+                        <span class="label">Recoverable with AI (15%)</span>
+                        <span class="value" id="recoverable">PKR 945,000/mo</span>
+                    </div>
+                    <div class="roi-result-item">
+                        <span class="label">Staff Hours Saved</span>
+                        <span class="value" id="hoursSaved">100 hrs/mo</span>
+                    </div>
+                    <div class="roi-total">
+                        <div class="label">NET MONTHLY GAIN WITH AI</div>
+                        <div class="value" id="netGain">PKR 1,145,000</div>
+                    </div>
+                    <p style="text-align: center; margin-top: 15px; font-size: 0.85rem; opacity: 0.7;">AI cost: $199/mo (~PKR 55,000) | ROI: <span id="roiMultiplier">20x</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing -->
+<section class="section" id="pricing">
+    <div class="container">
+        <div class="section-title">
+            <h2>Simple, Transparent Pricing</h2>
+            <p>No hidden fees. No long-term contracts. Scale as you grow.</p>
+            <div class="gold-line"></div>
+        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Starter</h3>
+                <div class="price">$79<span>/month</span></div>
+                <ul>
+                    <li>AI WhatsApp Chatbot</li>
+                    <li>Product Recommendations</li>
+                    <li>Basic CRM</li>
+                    <li>Email Support</li>
+                    <li class="x">Abandoned Cart Recovery</li>
+                    <li class="x">Order Tracking</li>
+                    <li class="x">Voice Agent</li>
+                </ul>
+                <a href="https://calendly.com/axovionio1/new-meeting" class="btn-outline">Get Started</a>
+            </div>
+            <div class="pricing-card featured">
+                <h3>Growth</h3>
+                <div class="price">$199<span>/month</span></div>
+                <ul>
+                    <li>AI WhatsApp Chatbot</li>
+                    <li>Product Recommendations</li>
+                    <li>Advanced CRM</li>
+                    <li>Priority Support</li>
+                    <li>Abandoned Cart Recovery</li>
+                    <li>Order Tracking Automation</li>
+                    <li>AI Voice Agent</li>
+                </ul>
+                <a href="https://calendly.com/axovionio1/new-meeting" class="btn-gold">Most Popular</a>
+            </div>
+            <div class="pricing-card">
+                <h3>Enterprise</h3>
+                <div class="price">$499<span>/month</span></div>
+                <ul>
+                    <li>Everything in Growth</li>
+                    <li>Custom CRM Dashboard</li>
+                    <li>WooCommerce Integration</li>
+                    <li>AI Price Suggestions</li>
+                    <li>Dedicated Account Manager</li>
+                    <li>White-label Options</li>
+                    <li>SLA Guarantee</li>
+                </ul>
+                <a href="https://calendly.com/axovionio1/new-meeting" class="btn-outline">Contact Sales</a>
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 40px; color: var(--gray-mid);">One-time setup fee: <strong style="color: var(--blue);">$299</strong> — includes catalog training, brand voice calibration, 30 days support.</p>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="container">
+        <h2>Ready to Automate Furniturezone.pk?</h2>
+        <p>Join Pakistani businesses already scaling with Axovion's AI. Book a free 20-minute demo — we'll show you the bot live, trained on furniture e-commerce scenarios.</p>
+        <div class="cta-buttons">
+            <a href="https://calendly.com/axovionio1/new-meeting" class="btn-gold">Book Free Demo</a>
+            <a href="https://wa.me/923360784541" class="btn-outline" style="color: var(--white); border-color: var(--white);">Message on WhatsApp</a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-links">
+            <a href="https://axovion.io">axovion.io</a>
+            <a href="https://calendly.com/axovionio1/new-meeting">Book a Call</a>
+            <a href="https://wa.me/923360784541">WhatsApp</a>
+        </div>
+        <p>Built with ❤️ by Axovion for Furniturezone.pk | © 2025 Axovion. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- Chatbot -->
+<div class="chatbot-container">
+    <div class="chatbot-window" id="chatWindow">
+        <div class="chatbot-header">
+            <div style="width: 36px; height: 36px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">🤖</div>
+            <div class="info">
+                <h4>Furniturezone AI Assistant</h4>
+                <span>Online — Ask me about furniture</span>
+            </div>
+            <span class="chatbot-close" onclick="toggleChat()">✕</span>
+        </div>
+        <div class="chatbot-messages" id="chatMessages">
+            <div class="chat-message bot">Assalam o Alaikum! 👋 I'm Furniturezone.pk's AI assistant. I can help you find the perfect furniture for your home — beds, sofas, dining sets, office furniture, and more. We deliver free in Lahore on orders over Rs. 199,000! What are you looking for?</div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatInput" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+            <button onclick="sendMessage()">➤</button>
+        </div>
+    </div>
+    <div class="chatbot-toggle" onclick="toggleChat()">💬</div>
+</div>
+
+<script>
+    // ROI Calculator
+    function calculateROI() {
+        const visitors = parseInt(document.getElementById('visitors').value) || 0;
+        const aov = parseInt(document.getElementById('aov').value) || 0;
+        const abandonRate = parseInt(document.getElementById('abandonRate').value) || 0;
+        const inquiries = parseInt(document.getElementById('inquiries').value) || 0;
+        const supportHours = parseInt(document.getElementById('supportHours').value) || 0;
+        
+        // Assumptions
+        const conversionRate = 0.10; // 10% of visitors add to cart
+        const weeklyCarts = Math.round(visitors * conversionRate);
+        const abandonedCarts = Math.round(weeklyCarts * (abandonRate / 100));
+        const monthlyLostRevenue = abandonedCarts * 4.3 * aov;
+        const recoverable = Math.round(monthlyLostRevenue * 0.15); // 15% recovery rate
+        
+        const hoursSaved = Math.round(supportHours * 4.3 * 0.7); // 70% automation
+        const staffValue = hoursSaved * 500; // PKR 500/hour
+        
+        const aiCost = 55000; // PKR ~$199
+        const netGain = recoverable + staffValue - aiCost;
+        const roi = Math.round(netGain / aiCost);
+        
+        document.getElementById('abandonedCarts').textContent = abandonedCarts + '/week';
+        document.getElementById('lostRevenue').textContent = 'PKR ' + monthlyLostRevenue.toLocaleString() + '/mo';
+        document.getElementById('recoverable').textContent = 'PKR ' + recoverable.toLocaleString() + '/mo';
+        document.getElementById('hoursSaved').textContent = hoursSaved + ' hrs/mo';
+        document.getElementById('netGain').textContent = 'PKR ' + netGain.toLocaleString();
+        document.getElementById('roiMultiplier').textContent = roi + 'x';
+    }
+    calculateROI();
+
+    // Chatbot
+    let chatOpen = false;
+    function toggleChat() {
+        chatOpen = !chatOpen;
+        document.getElementById('chatWindow').classList.toggle('open', chatOpen);
+    }
+
+    function handleKeyPress(e) {
+        if (e.key === 'Enter') sendMessage();
+    }
+
+    async function sendMessage() {
+        const input = document.getElementById('chatInput');
+        const message = input.value.trim();
+        if (!message) return;
+        
+        const messagesDiv = document.getElementById('chatMessages');
+        
+        // User message
+        const userDiv = document.createElement('div');
+        userDiv.className = 'chat-message user';
+        userDiv.textContent = message;
+        messagesDiv.appendChild(userDiv);
+        input.value = '';
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        
+        // Typing indicator
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'chat-message bot typing';
+        typingDiv.textContent = 'Thinking';
+        messagesDiv.appendChild(typingDiv);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        
+        try {
+            const response = await getGroqResponse(message);
+            typingDiv.remove();
+            
+            const botDiv = document.createElement('div');
+            botDiv.className = 'chat-message bot';
+            botDiv.textContent = response;
+            messagesDiv.appendChild(botDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        } catch (error) {
+            typingDiv.remove();
+            console.error('Chatbot error:', error);
+            const botDiv = document.createElement('div');
+            botDiv.className = 'chat-message bot';
+            botDiv.textContent = "I'm sorry, I'm having trouble connecting right now. Please contact us at info@furniturezone.pk or call +92-306-4757194";
+            messagesDiv.appendChild(botDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+    }
+
+    async function getGroqResponse(message) {
+        const GROQ_API_KEY = '';
+        
+        const systemPrompt = `You are the AI assistant for Furniturezone.pk, a premium custom furniture store in Lahore, Pakistan. You help customers find furniture and answer questions about products.
+
+Key facts about Furniturezone.pk:
+- Premium custom furniture store in Lahore
+- Location: Mir Street BOR Society, Opposite Shamim Medical Complex, Lahore
+- Free delivery in Lahore on orders over Rs. 199,000
+- Product categories: Bedroom Furniture (beds, bed sets, wardrobes), Living Room (sofas, sectionals, chairs), Dining (dining tables, dining sets), Office Furniture
+- Sample products: Cambridge King Bed (Rs. 20,000), Chesterfield Velvet Sofa (Rs. 35,000), Oma Low Profile Bed (Rs. 5,500), Lausyn Upholstered Bedroom Set (Rs. 19,001), Queen Upholstered Platform Bed with Storage (Rs. 35,000)
+- Contact: +92-306-4757194, info@furniturezone.pk
+- Founder: Muzammil Haneef
+- Platform: WordPress + WooCommerce
+- Also on Facebook, Instagram, Twitter, LinkedIn
+
+Tone: Warm, professional, helpful, premium. Respond in Urdu if user writes in Urdu, otherwise English. Be concise but informative. If you don't know something specific, guide them to contact info@furniturezone.pk or call +92-306-4757194.
+
+Also mention Axovion's AI automation services naturally when relevant — we built this demo to show how AI can help Furniturezone.pk scale.`;
+
+        const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
+        const response = await fetch(GROQ_URL, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${GROQ_API_KEY}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                model: 'llama-3.1-8b-instant',
+                messages: [
+                    { role: 'system', content: systemPrompt },
+                    { role: 'user', content: message }
+                ],
+                temperature: 0.7,
+                max_tokens: 500
+            })
+        });
+        
+        if (!response.ok) {
+            const errData = await response.json().catch(() => ({}));
+            throw new Error(errData.error?.message || 'API error ' + response.status);
+        }
+        const data = await response.json();
+        return data.choices[0].message.content;
+    }
+</script>
+
+</body>
+</html>
