@@ -166,18 +166,136 @@
         .chatbot-input button { width: 44px; height: 44px; background: var(--gold); border: none; border-radius: 50%; cursor: pointer; color: var(--black); font-size: 1.1rem; transition: all 0.3s; }
         .chatbot-input button:hover { background: var(--gold-light); }
 
-        /* Responsive */
+        /* Hamburger Menu */
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 5px; background: none; border: none; }
+        .hamburger span { display: block; width: 24px; height: 2px; background: var(--gray); border-radius: 2px; transition: all 0.3s; }
+        .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* Tablet */
         @media (max-width: 900px) {
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .products-grid { grid-template-columns: repeat(2, 1fr); }
-            .pain-grid { grid-template-columns: 1fr; }
-            .solution-row { grid-template-columns: 1fr; }
+            .pain-grid { grid-template-columns: repeat(2, 1fr); }
+            .solution-row { grid-template-columns: 1fr; gap: 30px; }
             .solution-row.reverse { direction: ltr; }
             .roi-grid { grid-template-columns: 1fr; }
-            .pricing-grid { grid-template-columns: 1fr; }
+            .pricing-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
             .pricing-card.featured { transform: none; }
-            .hero h1 { font-size: 2rem; }
+            .hero h1 { font-size: 2.2rem; }
+            .section-title h2 { font-size: 1.8rem; }
             .chatbot-window { width: calc(100vw - 40px); right: -10px; }
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            /* Header */
+            .hamburger { display: flex; }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                gap: 0;
+                padding: 10px 0 20px;
+                box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+                border-top: 1px solid #eee;
+                z-index: 99;
+            }
+            .nav-links.open { display: flex; }
+            .nav-links a {
+                padding: 14px 24px;
+                font-size: 1rem;
+                border-bottom: 1px solid #f0f0f0;
+            }
+            .nav-links .btn-primary {
+                margin: 12px 24px 0;
+                text-align: center;
+                border-radius: 4px;
+            }
+            .header { position: sticky; top: 0; }
+            .header-inner { position: relative; }
+            .logo-text { font-size: 1rem; }
+            .logo-area img { height: 38px; }
+            .logo-area { gap: 10px; }
+
+            /* Hero */
+            .hero { padding: 60px 0 50px; }
+            .hero h1 { font-size: 1.7rem; line-height: 1.3; }
+            .hero p { font-size: 1rem; }
+            .hero-badge { font-size: 0.78rem; padding: 6px 14px; }
+            .hero-cta { flex-direction: column; align-items: center; gap: 12px; }
+            .hero-cta a { width: 100%; max-width: 300px; text-align: center; }
+
+            /* Stats */
+            .stats-bar { padding: 30px 0; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+            .stat-item h3 { font-size: 1.8rem; }
+
+            /* Section */
+            .section { padding: 50px 0; }
+            .section-title { margin-bottom: 35px; }
+            .section-title h2 { font-size: 1.5rem; }
+            .section-title p { font-size: 0.95rem; }
+
+            /* Products */
+            .products-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .product-card img { height: 150px; }
+            .product-info { padding: 14px; }
+            .product-info h4 { font-size: 0.9rem; }
+
+            /* Pain */
+            .pain-grid { grid-template-columns: 1fr; gap: 16px; }
+            .pain-card { padding: 24px; }
+
+            /* Solutions */
+            .solution-row { gap: 20px; margin-bottom: 40px; }
+            .solution-visual { padding: 25px 20px; }
+            .solution-visual .icon-big { font-size: 2.8rem; }
+            .solution-content h3 { font-size: 1.3rem; }
+
+            /* ROI */
+            .roi-section { padding: 50px 0; }
+            .roi-calculator { padding: 25px 18px; }
+            .roi-result-item { flex-direction: column; gap: 4px; }
+            .roi-result-item .value { font-size: 1rem; }
+            .roi-total .value { font-size: 1.5rem; }
+
+            /* Pricing */
+            .pricing-grid { max-width: 100%; }
+            .pricing-card { padding: 30px 24px; }
+            .pricing-card .price { font-size: 2.2rem; }
+
+            /* CTA */
+            .cta-section { padding: 60px 0; }
+            .cta-section h2 { font-size: 1.7rem; }
+            .cta-section p { font-size: 0.95rem; }
+            .cta-buttons { flex-direction: column; align-items: center; gap: 12px; }
+            .cta-buttons a { width: 100%; max-width: 300px; text-align: center; }
+
+            /* Footer */
+            .footer-links { gap: 16px; }
+
+            /* Chatbot */
+            .chatbot-container { bottom: 16px; right: 16px; }
+            .chatbot-window {
+                width: calc(100vw - 32px);
+                height: 70vh;
+                right: -16px;
+                bottom: 70px;
+            }
+            .chatbot-toggle { width: 52px; height: 52px; font-size: 1.3rem; }
+        }
+
+        /* Very small phones */
+        @media (max-width: 360px) {
+            .hero h1 { font-size: 1.45rem; }
+            .products-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -190,11 +308,14 @@
             <img src="logo.webp" alt="Furniturezone.pk">
             <div class="logo-text">Furniturezone.pk <span>+ Axovion</span></div>
         </div>
-        <nav class="nav-links">
-            <a href="#products">Products</a>
-            <a href="#solutions">Solutions</a>
-            <a href="#roi">ROI Calculator</a>
-            <a href="#pricing">Pricing</a>
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <nav class="nav-links" id="navLinks">
+            <a href="#products" onclick="closeNav()">Products</a>
+            <a href="#solutions" onclick="closeNav()">Solutions</a>
+            <a href="#roi" onclick="closeNav()">ROI Calculator</a>
+            <a href="#pricing" onclick="closeNav()">Pricing</a>
             <a href="https://calendly.com/axovionio1/new-meeting" class="btn-primary">Book a Demo</a>
         </nav>
     </div>
@@ -566,6 +687,26 @@
 </div>
 
 <script>
+    // Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('open');
+        hamburger.classList.toggle('active', isOpen);
+        hamburger.setAttribute('aria-expanded', isOpen);
+    });
+    function closeNav() {
+        navLinks.classList.remove('open');
+        hamburger.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', false);
+    }
+    // Close nav when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+            closeNav();
+        }
+    });
+
     // ROI Calculator
     function calculateROI() {
         const visitors = parseInt(document.getElementById('visitors').value) || 0;
